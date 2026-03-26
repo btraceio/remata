@@ -14,6 +14,10 @@ repositories {
     }
 }
 
+kotlin {
+    jvmToolchain(17)
+}
+
 dependencies {
     intellijPlatform {
         intellijIdeaCommunity("2024.1")
@@ -31,6 +35,12 @@ intellijPlatform {
         id = "com.reviewplugin"
         name = "Agent Review"
         version = project.version.toString()
+        description = """
+            Renders file-based code review annotations written by a human or a coding agent.
+            No server. No network. The protocol is a directory of JSON files under .review/comments/.
+            The plugin reads and writes them. The agent reads and writes them.
+            Both parties see each other's comments in real time.
+        """.trimIndent()
         ideaVersion {
             sinceBuild = "241"
         }
@@ -40,5 +50,8 @@ intellijPlatform {
 tasks {
     test {
         useJUnit()
+    }
+    buildSearchableOptions {
+        enabled = false
     }
 }
