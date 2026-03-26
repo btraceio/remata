@@ -1,0 +1,64 @@
+<idea-plugin>
+    <id>com.reviewplugin</id>
+    <name>Agent Review</name>
+    <vendor>btraceio</vendor>
+    <description>
+        Renders file-based code review annotations written by a human or a coding agent.
+        No server. No network. The protocol is a directory of JSON files.
+    </description>
+
+    <depends>com.intellij.modules.platform</depends>
+
+    <extensions defaultExtensionNs="com.intellij">
+        <!-- Store as project service -->
+        <projectService
+            serviceInterface="com.reviewplugin.store.CommentStore"
+            serviceImplementation="com.reviewplugin.store.CommentStore"/>
+
+        <!-- Startup: register file watcher and load existing comments -->
+        <postStartupActivity
+            implementation="com.reviewplugin.store.ReviewDirWatcher"/>
+
+        <!-- Gutter markers for common languages -->
+        <codeInsight.lineMarkerProvider
+            language="JAVA"
+            implementationClass="com.reviewplugin.ui.gutter.ReviewGutterIconProvider"/>
+        <codeInsight.lineMarkerProvider
+            language="kotlin"
+            implementationClass="com.reviewplugin.ui.gutter.ReviewGutterIconProvider"/>
+        <codeInsight.lineMarkerProvider
+            language="Python"
+            implementationClass="com.reviewplugin.ui.gutter.ReviewGutterIconProvider"/>
+        <codeInsight.lineMarkerProvider
+            language="JavaScript"
+            implementationClass="com.reviewplugin.ui.gutter.ReviewGutterIconProvider"/>
+        <codeInsight.lineMarkerProvider
+            language="TypeScript"
+            implementationClass="com.reviewplugin.ui.gutter.ReviewGutterIconProvider"/>
+        <codeInsight.lineMarkerProvider
+            language="ObjectiveC"
+            implementationClass="com.reviewplugin.ui.gutter.ReviewGutterIconProvider"/>
+        <codeInsight.lineMarkerProvider
+            language="XML"
+            implementationClass="com.reviewplugin.ui.gutter.ReviewGutterIconProvider"/>
+        <codeInsight.lineMarkerProvider
+            language="TEXT"
+            implementationClass="com.reviewplugin.ui.gutter.ReviewGutterIconProvider"/>
+
+        <!-- Tool window -->
+        <toolWindow id="Code Review"
+            anchor="bottom"
+            factoryClass="com.reviewplugin.ui.toolwindow.ReviewToolWindowFactory"
+            icon="/icons/review.svg"/>
+    </extensions>
+
+    <actions>
+        <action id="ReviewPlugin.NewComment"
+            class="com.reviewplugin.actions.NewReviewCommentAction"
+            text="Add Review Comment"
+            description="Add a review comment at the selected lines">
+            <add-to-group group-id="EditorPopupMenu" anchor="last"/>
+            <keyboard-shortcut keymap="$default" first-keystroke="ctrl alt R"/>
+        </action>
+    </actions>
+</idea-plugin>
