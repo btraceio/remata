@@ -40,10 +40,10 @@ jobs:
         run: chmod +x gradlew
 
       - name: Build plugin
-        run: ./gradlew buildPlugin
+        run: ./gradlew buildPlugin --stacktrace
 
       - name: Run tests
-        run: ./gradlew test
+        run: ./gradlew test --stacktrace
 
       - name: Upload test results
         if: always()
@@ -84,10 +84,10 @@ jobs:
         run: chmod +x gradlew
 
       - name: Verify plugin descriptor
-        run: ./gradlew verifyPluginConfiguration
+        run: ./gradlew verifyPluginConfiguration --stacktrace
 
       - name: Build plugin distribution
-        run: ./gradlew buildPlugin
+        run: ./gradlew buildPlugin --stacktrace
 
       - name: Upload plugin artifact
         uses: actions/upload-artifact@v4

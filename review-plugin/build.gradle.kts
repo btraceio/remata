@@ -21,9 +21,9 @@ kotlin {
 dependencies {
     intellijPlatform {
         intellijIdeaCommunity("2024.1")
-        bundledPlugin("com.intellij.java")
         pluginVerifier()
         instrumentationTools()
+        testFramework(org.jetbrains.intellij.platform.gradle.TestFrameworkType.Platform)
     }
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.3")
     testImplementation(kotlin("test"))
@@ -31,7 +31,6 @@ dependencies {
 }
 
 intellijPlatform {
-    buildSearchableOptions = false
     pluginConfiguration {
         id = "com.reviewplugin"
         name = "Agent Review"
@@ -51,5 +50,8 @@ intellijPlatform {
 tasks {
     test {
         useJUnit()
+    }
+    buildSearchableOptions {
+        enabled = false
     }
 }
