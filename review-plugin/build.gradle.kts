@@ -21,7 +21,6 @@ kotlin {
 dependencies {
     intellijPlatform {
         intellijIdeaCommunity("2024.1")
-        bundledPlugin("com.intellij.java")
         pluginVerifier()
         instrumentationTools()
     }
@@ -31,7 +30,6 @@ dependencies {
 }
 
 intellijPlatform {
-    buildSearchableOptions = false
     pluginConfiguration {
         id = "com.reviewplugin"
         name = "Agent Review"
@@ -51,5 +49,8 @@ intellijPlatform {
 tasks {
     test {
         useJUnit()
+    }
+    buildSearchableOptions {
+        enabled = false
     }
 }
