@@ -23,6 +23,7 @@ dependencies {
         intellijIdeaCommunity("2024.1")
         pluginVerifier()
         instrumentationTools()
+        testFramework(org.jetbrains.intellij.platform.gradle.TestFrameworkType.Platform)
     }
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.3")
     testImplementation(kotlin("test"))
