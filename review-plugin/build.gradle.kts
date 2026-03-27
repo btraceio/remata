@@ -31,6 +31,7 @@ dependencies {
 }
 
 intellijPlatform {
+    buildSearchableOptions = false
     pluginConfiguration {
         id = "com.reviewplugin"
         name = "Agent Review"
@@ -50,8 +51,5 @@ intellijPlatform {
 tasks {
     test {
         useJUnit()
-    }
-    buildSearchableOptions {
-        enabled = false
     }
 }
