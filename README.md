@@ -43,26 +43,26 @@ Or run a sandboxed IDE for testing:
 | View comments | **Code Review** tool window (bottom bar) |
 | Reply / Resolve | Select comment in tool window, use Reply / Resolve / Won't Fix buttons |
 
-### Agent side (Python example)
+### Claude Code integration
 
-```python
-import json, os, glob
+Install the Claude Code plugin so Claude can discover and respond to your reviews:
 
-# Read open comments
-for path in glob.glob(".review/comments/*.json"):
-    comment = json.load(open(path))
-    if comment["status"] == "open":
-        print(f"{comment['anchor']['file']}:{comment['anchor']['line_hint']} — {comment['body']}")
+```bash
+pip install mcp
+claude plugin add ./remata-review-plugin
 ```
 
-See [`review-plugin/README.md`](review-plugin/README.md) for the full agent integration API
-with write and resolve examples.
+Then in any project with review comments, run `/remata:review` — Claude will list open
+comments, fix the issues, and resolve them with explanations.
+
+See [`remata-review-plugin/README.md`](remata-review-plugin/README.md) for details.
 
 ## Documentation
 
 | Document | Description |
 |---|---|
 | [`review-plugin/README.md`](review-plugin/README.md) | Build instructions, plugin usage, agent API, file format spec |
+| [`remata-review-plugin/README.md`](remata-review-plugin/README.md) | Claude Code plugin: installation, MCP tools, slash command |
 | [`CONTRIBUTING.md`](CONTRIBUTING.md) | How to contribute: setup, testing, PR guidelines |
 | [`CHANGELOG.md`](CHANGELOG.md) | Release history |
 
@@ -70,18 +70,23 @@ with write and resolve examples.
 
 ```
 remata/
-├── review-plugin/           # IntelliJ plugin (Kotlin)
-│   ├── src/main/kotlin/     # Plugin source
-│   ├── src/test/kotlin/     # 53 unit tests
-│   ├── build.gradle.kts     # IntelliJ Platform Gradle Plugin 2.3.0
-│   └── README.md            # Detailed plugin docs
+├── review-plugin/               # IntelliJ plugin (Kotlin)
+│   ├── src/main/kotlin/         # Plugin source
+│   ├── src/test/kotlin/         # 53 unit tests
+│   ├── build.gradle.kts         # IntelliJ Platform Gradle Plugin 2.3.0
+│   └── README.md                # Detailed plugin docs
+├── remata-review-plugin/        # Claude Code plugin
+│   ├── .claude-plugin/          # Plugin manifest
+│   ├── server/review-server.py  # MCP server (5 tools)
+│   ├── skills/review/SKILL.md   # /remata:review slash command
+│   └── README.md                # Installation & usage
 ├── .github/
-│   ├── workflows/ci.yml     # Build, test, verify on every push
-│   ├── ISSUE_TEMPLATE/      # Bug report & feature request templates
+│   ├── workflows/ci.yml         # Build, test, verify on every push
+│   ├── ISSUE_TEMPLATE/          # Bug report & feature request templates
 │   └── PULL_REQUEST_TEMPLATE.md
 ├── CONTRIBUTING.md
 ├── CHANGELOG.md
-└── LICENSE                   # Apache 2.0
+└── LICENSE                       # Apache 2.0
 ```
 
 ## Requirements

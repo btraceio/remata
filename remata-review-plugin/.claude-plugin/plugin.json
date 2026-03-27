@@ -1,0 +1,8 @@
+{
+  "name": "remata",
+  "description": "Interact with file-based code review comments (.review/comments/). Works with the Remata IntelliJ plugin for human-agent code review.",
+  "version": "0.1.0",
+  "author": {
+    "name": "btraceio"
+  }
+}

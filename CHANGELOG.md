@@ -6,6 +6,13 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [Unreleased]
 
+### Added
+
+- Claude Code plugin (`remata-review-plugin/`) with MCP server and slash command
+- MCP tools: `list_reviews`, `show_review`, `reply_to_review`, `resolve_review`, `create_review`
+- `/remata:review` skill for automated review comment triage
+- Python MCP server using stdio transport (stdlib + `mcp` package)
+
 ## [0.1.0] - 2026-03-26
 
 ### Added

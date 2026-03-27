@@ -101,8 +101,23 @@ see what was there before.
 
 ## Agent Integration
 
-An agent (Claude Code, Cursor, or any script) participates by reading and writing
-JSON files in `.review/comments/`. No special library required.
+### Claude Code (recommended)
+
+Install the [Remata Claude Code plugin](../remata-review-plugin/README.md) for
+structured MCP tool access:
+
+```bash
+pip install mcp
+claude plugin add ./remata-review-plugin
+```
+
+Then use `/remata:review` to list and address open comments, or call tools like
+`list_reviews`, `show_review`, `resolve_review` directly.
+
+### Any agent (manual)
+
+An agent (Claude Code, Cursor, or any script) can also participate by reading and writing
+JSON files in `.review/comments/` directly. No special library required.
 
 ### Reading open comments (Python example)
 
