@@ -159,7 +159,7 @@ class HunkMatcherTest {
         """.trimIndent()
         // After first hunk: offset = (2+3)-(2+2) = 1
         // Old line 5 is between hunks → 5 - 1 + 1 = 5 (0-based)
-        assertEquals(5, HunkMatcher.parseDiffAndRemap(diff, 6))
+        assertEquals(5, HunkMatcher.parseDiffAndRemap(diff, 5))
     }
 
     @Test
@@ -174,7 +174,7 @@ class HunkMatcherTest {
         // Old line 5 is in the hunk (5..5)
         assertNull(HunkMatcher.parseDiffAndRemap(diff, 5))
         // Old line 6 is after: offset = (5+2)-(5+1) = 1, result = 6-1+1 = 6
-        assertEquals(6, HunkMatcher.parseDiffAndRemap(diff, 7))
+        assertEquals(6, HunkMatcher.parseDiffAndRemap(diff, 6))
     }
 
     // ── fuzzySearch ─────────────────────────────────────────────────
