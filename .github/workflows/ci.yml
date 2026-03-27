@@ -45,6 +45,20 @@ jobs:
       - name: Run tests
         run: ./gradlew test --stacktrace
 
+      - name: Print test results on failure
+        if: failure()
+        run: |
+          echo "=== TEST RESULTS XML ==="
+          find build/test-results -name '*.xml' -exec cat {} \; 2>/dev/null || echo "No XML results found"
+          echo "=== STDOUT/STDERR ==="
+          find build/test-results -name '*.txt' -exec cat {} \; 2>/dev/null || echo "No text output found"
+          echo "=== GRADLE TEST REPORT ==="
+          find build/reports/tests -name '*.html' -exec grep -l 'failures' {} \; 2>/dev/null || echo "No HTML reports found"
+          for f in $(find build/reports/tests -name '*.html' 2>/dev/null); do
+            echo "--- $f ---"
+            cat "$f" | sed 's/<[^>]*>//g' | head -100
+          done
+
       - name: Upload test results
         if: always()
         uses: actions/upload-artifact@v4
